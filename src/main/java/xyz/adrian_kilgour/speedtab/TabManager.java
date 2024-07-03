@@ -69,6 +69,28 @@ public class TabManager {
      * @return the text with MiniMessage color tags
      */
     private String convertColours(String text) {
-        return text.replaceAll("&", "<reset><color:").replaceAll("(?i)(<color:[0-9a-fk-or])>", "$1>");
+        return text
+                .replaceAll("(?i)&0", "<black>")
+                .replaceAll("(?i)&1", "<dark_blue>")
+                .replaceAll("(?i)&2", "<dark_green>")
+                .replaceAll("(?i)&3", "<dark_aqua>")
+                .replaceAll("(?i)&4", "<dark_red>")
+                .replaceAll("(?i)&5", "<dark_purple>")
+                .replaceAll("(?i)&6", "<gold>")
+                .replaceAll("(?i)&7", "<gray>")
+                .replaceAll("(?i)&8", "<dark_gray>")
+                .replaceAll("(?i)&9", "<blue>")
+                .replaceAll("(?i)&a", "<green>")
+                .replaceAll("(?i)&b", "<aqua>")
+                .replaceAll("(?i)&c", "<red>")
+                .replaceAll("(?i)&d", "<light_purple>")
+                .replaceAll("(?i)&e", "<yellow>")
+                .replaceAll("(?i)&f", "<white>")
+                .replaceAll("(?i)&k", "<obfuscated>")
+                .replaceAll("(?i)&l", "<bold>")
+                .replaceAll("(?i)&m", "<strikethrough>")
+                .replaceAll("(?i)&n", "<underlined>")
+                .replaceAll("(?i)&o", "<italic>")
+                .replaceAll("(?i)&r", "<reset>");
     }
 }
