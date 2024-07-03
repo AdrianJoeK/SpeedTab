@@ -14,10 +14,10 @@ import java.util.Map;
  */
 public class TabManager {
     private final ProxyServer server;
-    private final String defaultTabTitle;
-    private final String defaultTabFooter;
-    private final Map<String, String> serverTabTitles;
-    private final Map<String, String> serverTabFooters;
+    private String defaultTabTitle;
+    private String defaultTabFooter;
+    private Map<String, String> serverTabTitles;
+    private Map<String, String> serverTabFooters;
 
     /**
      * Constructor for the TabManager class.
@@ -44,9 +44,16 @@ public class TabManager {
     @Subscribe
     public void onServerConnected(ServerConnectedEvent event) {
         Player player = event.getPlayer();
-        String serverName = event.getServer().getServerInfo().getName();
+        applyTabList(player, event.getServer().getServerInfo().getName());
+    }
 
-        // Get tab title and foorter for the server, or use defaults if not specified.
+    /**
+     * Applies the tab list header and footer to a player.
+     * @param player        the player to apply the tab list to
+     * @param serverName    the name of the server the player is connected to
+     */
+    private void applyTabList(Player player, String serverName) {
+        // Get tab title and footer for the server, or use defaults if not specified.
         String tabTitle = serverTabTitles.getOrDefault(serverName, defaultTabTitle);
         String tabFooter = serverTabFooters.getOrDefault(serverName, defaultTabFooter);
 
@@ -92,5 +99,25 @@ public class TabManager {
                 .replaceAll("(?i)&n", "<underlined>")
                 .replaceAll("(?i)&o", "<italic>")
                 .replaceAll("(?i)&r", "<reset>");
+    }
+
+    /**
+     * Updates the titles and footers with new values.
+     * @param defaultTabTitle   the new default tab title
+     * @param defaultTabFooter  the new default tab footer
+     * @param serverTabTitles   the new tab titles for different servers
+     * @param serverTabFooters  the new tab footers for different servers
+     */
+    public void updateTitlesAndFooters(String defaultTabTitle, String defaultTabFooter,
+                                       Map<String, String> serverTabTitles, Map<String, String> serverTabFooters) {
+        this.defaultTabTitle = defaultTabTitle;
+        this.defaultTabFooter = defaultTabFooter;
+        this.serverTabTitles = serverTabTitles;
+        this.serverTabFooters = serverTabFooters;
+
+        // Reapply tab list to all connected players, so they don't need to rejoin.
+        for (Player player : server.getAllPlayers()) {
+            applyTabList(player, player.getCurrentServer().get().getServerInfo().getName());
+        }
     }
 }

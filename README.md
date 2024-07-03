@@ -10,12 +10,16 @@ SpeedTab is a customizable tab plugin for the Velocity Minecraft proxy. It allow
 - Customizable tab headers and footers.
 - Different headers and footers for different servers.
 - Support for Minecraft colour codes and formatting.
+- Reload config with a command '/speedtabreload'.
 
 ## Installation
 
 1. Download the latest release of SpeedTab from the [Releases](https://github.com/AdrianJoeK/speedtab/releases) page.
 2. Place the downloaded JAR file in the `plugins` directory of your Velocity server.
 3. Start your Velocity server to generate the default configuration file.
+
+## Commands
+- Reload config - '/speedtabreload'
 
 ## Configuration
 

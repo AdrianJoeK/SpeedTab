@@ -1,11 +1,14 @@
 package xyz.adrian_kilgour.speedtab;
 
 import com.google.inject.Inject;
+import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import net.kyori.adventure.text.Component;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
@@ -23,7 +26,7 @@ import java.util.Map;
 @Plugin(
         id = "speedtab",
         name = "SpeedTab",
-        version = "0.0.2-SNAPSHOT",
+        version = "0.0.3-SNAPSHOT",
         description = "A customizable tab plugin for Velocity.",
         authors = {"Adrian Kilgour"}
 )
@@ -35,6 +38,7 @@ public class SpeedTab {
     private String defaultTabFooter;
     private final Map<String, String> serverTabTitles = new HashMap<>();
     private final Map<String, String> serverTabFooters = new HashMap<>();
+    private TabManager tabManager;
 
     /**
      * Constructor for the SpeedTab class.
@@ -63,6 +67,16 @@ public class SpeedTab {
         TabManager tabManager = new TabManager(server, defaultTabTitle, defaultTabFooter, serverTabTitles, serverTabFooters);
         // Register the tab manager to lisen for events.
         server.getEventManager().register(this, tabManager);
+        // Register the reload command.
+        server.getCommandManager().register("speedtabreload", new SimpleCommand() {
+            @Override
+            public void execute(Invocation invocation) {
+                CommandSource source = invocation.source();
+                loadConfig();
+                tabManager.updateTitlesAndFooters(defaultTabTitle, defaultTabFooter, serverTabTitles, serverTabFooters);
+                source.sendMessage(Component.text("SpeedTab configuration reloaded!"));
+            }
+        });
     }
 
     /**
