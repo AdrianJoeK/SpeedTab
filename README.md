@@ -94,6 +94,6 @@ SpeedTab is licensed under the AGPL-3.0 License. See the [LICENSE](https://githu
 Contributions are welcome! Please open an issue or submit a pull request on GitHub.
 
 ## Acknowledgements
-[Velocity](https://papermc.io/software/velocity) - The Minecraft proxy server that SpeedTab is built for.
-[Configurate](https://github.com/SpongePowered/Configurate) - The library used for configuration management.
-[MiniMessage](https://github.com/KyoriPowered/adventure-text-minimessage) - The library used for text formatting.
+* [Velocity](https://papermc.io/software/velocity) - The Minecraft proxy server that SpeedTab is built for.
+* [Configurate](https://github.com/SpongePowered/Configurate) - The library used for configuration management.
+* [MiniMessage](https://github.com/KyoriPowered/adventure-text-minimessage) - The library used for text formatting.
