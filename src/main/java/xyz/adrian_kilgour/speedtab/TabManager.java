@@ -50,12 +50,25 @@ public class TabManager {
         String tabTitle = serverTabTitles.getOrDefault(serverName, defaultTabTitle);
         String tabFooter = serverTabFooters.getOrDefault(serverName, defaultTabFooter);
 
+        // Convert & colour codes to MiniMessage format.
+        String parsedTitle = convertColours(tabTitle);
+        String parsedFooter = convertColours(tabFooter);
+
         // Parse the tab title and footer using MiniMessage for color codes and other formatting.
         MiniMessage minimessage = MiniMessage.miniMessage();
-        Component parsedTitle = minimessage.deserialize(tabTitle);
-        Component parsedFooter = minimessage.deserialize(tabFooter);
+        Component titleComponent = minimessage.deserialize(parsedTitle);
+        Component footerComponent = minimessage.deserialize(parsedFooter);
 
         // Set the player's tab list header and footer.
-        player.sendPlayerListHeaderAndFooter(parsedTitle, parsedFooter);
+        player.sendPlayerListHeaderAndFooter(titleComponent, footerComponent);
+    }
+
+    /**
+     * Converts & style colour codes to MiniMessage format.
+     * @param text the text with & style color codes
+     * @return the text with MiniMessage color tags
+     */
+    private String convertColours(String text) {
+        return text.replaceAll("&", "<reset><color:").replaceAll("(?i)(<color:[0-9a-fk-or])>", "$1>");
     }
 }
