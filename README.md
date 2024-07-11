@@ -11,6 +11,7 @@ SpeedTab is a customizable tab plugin for the Velocity Minecraft proxy. It allow
 - Different headers and footers for different servers.
 - Support for Minecraft colour codes and formatting.
 - Reload config with a command `/speedtabreload`.
+- Permission node for the reload command.
 
 ## Installation
 
@@ -20,6 +21,12 @@ SpeedTab is a customizable tab plugin for the Velocity Minecraft proxy. It allow
 
 ## Commands
 - Reload config - `/speedtabreload`
+
+## Permissions
+- Reload config - `speedtab.reload`
+By default no one has the permission other than the console.
+To grant the permission to a player, you will need a permissions plugin installed on Velocity, and in the backend server (eg: Paper).
+This was tested with LuckPerms installed on Velocity and Paper, both connected up to the same MySQL server with the `speedtab.reload` permission applied to my player.
 
 ## Configuration
 
