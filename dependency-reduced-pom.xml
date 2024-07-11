@@ -4,7 +4,7 @@
   <groupId>xyz.adrian_kilgour</groupId>
   <artifactId>speedtab</artifactId>
   <name>SpeedTab</name>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.4-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>

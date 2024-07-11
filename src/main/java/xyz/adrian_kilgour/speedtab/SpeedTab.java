@@ -26,7 +26,7 @@ import java.util.Map;
 @Plugin(
         id = "speedtab",
         name = "SpeedTab",
-        version = "0.0.3-SNAPSHOT",
+        version = "0.0.4-SNAPSHOT",
         description = "A customizable tab plugin for Velocity.",
         authors = {"Adrian Kilgour"}
 )
@@ -39,6 +39,7 @@ public class SpeedTab {
     private final Map<String, String> serverTabTitles = new HashMap<>();
     private final Map<String, String> serverTabFooters = new HashMap<>();
     private TabManager tabManager;
+    private static final String RELOAD_PERMISSION = "speedtab.reload";
 
     /**
      * Constructor for the SpeedTab class.
@@ -72,9 +73,21 @@ public class SpeedTab {
             @Override
             public void execute(Invocation invocation) {
                 CommandSource source = invocation.source();
+                // Check if the source has the required permission.
+                if(!source.hasPermission(RELOAD_PERMISSION)) {
+                    source.sendMessage(Component.text("You do not have permission to execute this command."));
+                    return;
+                }
+                // Reload the config file.
                 loadConfig();
                 tabManager.updateTitlesAndFooters(defaultTabTitle, defaultTabFooter, serverTabTitles, serverTabFooters);
                 source.sendMessage(Component.text("SpeedTab configuration reloaded!"));
+            }
+
+            @Override
+            public boolean hasPermission(Invocation invocation) {
+                // Ensure that the command can only be executed by sources with the speedtab.reload permission.
+                return invocation.source().hasPermission(RELOAD_PERMISSION);
             }
         });
     }
