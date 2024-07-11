@@ -75,9 +75,12 @@ public class SpeedTab {
                 CommandSource source = invocation.source();
                 // Check if the source has the required permission.
                 if(!source.hasPermission(RELOAD_PERMISSION)) {
+                    logger.warn("Command execution denied for {}: lacking permission {}", source, RELOAD_PERMISSION);
                     source.sendMessage(Component.text("You do not have permission to execute this command."));
                     return;
                 }
+                // Log the execution of the command.
+                logger.info("{} executed the speedtabreload command", source);
                 // Reload the config file.
                 loadConfig();
                 tabManager.updateTitlesAndFooters(defaultTabTitle, defaultTabFooter, serverTabTitles, serverTabFooters);
